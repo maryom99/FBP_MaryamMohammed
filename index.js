@@ -8,7 +8,7 @@ function Link(props){
         event.preventDefault();
         const component = props.Component();
         root.innerHTML = "";
-        root.append(component)
+        root.append(component);
         history.pushState(null, "", event.target.href);
     };
 
