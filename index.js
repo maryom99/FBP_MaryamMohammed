@@ -1,27 +1,32 @@
 const root = document.getElementById("root");
 
-function Navbar(){
-    const linkHome = document.createElement("a");
-    linkHome.href = "#home";
-    linkHome.textContent = "Home";
-    linkHome.onclick = function (event){
+function Link(props){
+    const link = document.createElement("a");
+    link.href = props.href;
+    link.textContent = props.label;
+    link.onclick = function (event){
         event.preventDefault();
-        const homeScreen = HomeScreen();
+        const component = props.Component();
         root.innerHTML = "";
-        root.append(homeScreen)
+        root.append(component)
         history.pushState(null, "", event.target.href);
     };
 
-    const linkAbout = document.createElement("a");
-    linkAbout.href = "#about";
-    linkAbout.textContent = "About";
-    linkAbout.onclick = function (event){
-        event.preventDefault();
-        const aboutScreen = AboutScreen();
-        root.innerHTML = "";
-        root.append(aboutScreen)    
-        history.pushState(null, "", event.target.href);
-    };
+    return link;
+}
+
+function Navbar(){
+       const linkHome = Link({ 
+        herf: "#home", 
+        label: "Home", 
+        Component: HomeScreen,
+    });
+
+    const linkAbout = Link({ 
+        herf: "#about", 
+        label: "About", 
+        Component: AboutScreen,
+    });
 
     const div = document.createElement("p");
     div.append(linkHome);
@@ -31,16 +36,11 @@ function Navbar(){
 };
 
 function AboutScreen(){
-    const linkHome = document.createElement("a");
-    linkHome.href = "#home";
-    linkHome.textContent = "Back to Home";
-    linkHome.onclick = function (event){
-        event.preventDefault();
-        const homeScreen = HomeScreen();
-        root.innerHTML = "";
-        root.append(homeScreen)
-        history.pushState(null, "", event.target.href);
-    };
+    const linkHome = Link({ 
+        herf: "#home", 
+        label: "Back to Home", 
+        Component: HomeScreen,
+    });
 
     const text = document.createElement("p");
     text.textContent = "Welcome to About";
